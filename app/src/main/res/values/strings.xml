@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ListaMultimedia</string>
+    <string name="tv_titulo">Lista de Objetos</string>
+    <string name="btnAccion">Abrir</string>
+</resources>
