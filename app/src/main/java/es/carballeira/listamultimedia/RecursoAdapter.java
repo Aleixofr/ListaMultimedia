@@ -29,16 +29,12 @@ public class RecursoAdapter extends RecyclerView.Adapter<RecursoAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitulo, tvTipo;
         Button btnAccion;
-        VideoView videoView;
-        WebView webView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvTitulo = itemView.findViewById(R.id.tvTitulo);
             tvTipo = itemView.findViewById(R.id.tvTipo);
             btnAccion = itemView.findViewById(R.id.btnAccion);
-            videoView = itemView.findViewById(R.id.videoView);
-            webView = itemView.findViewById(R.id.webView);
         }
     }
 
@@ -51,21 +47,21 @@ public class RecursoAdapter extends RecyclerView.Adapter<RecursoAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Recurso recurso = recursoList.get(position);
         holder.tvTitulo.setText(recurso.getTitulo());
         holder.tvTipo.setText("Tipo: " + recurso.getTipo());
 
         holder.btnAccion.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), MainActivity.class);
-            if (recurso instanceof RecursoVideo) {
-                // Enviar el ID del recurso de video
-                intent.putExtra("video_id", ((RecursoVideo) recurso).getResource());
-            } else if (recurso instanceof RecursoAudio) {
-                // Si es audio, maneja otro tipo de recurso
-                // Puedes enviar la URL o ID de audio si quieres reproducirlo desde aquí
-            }
-            v.getContext().startActivity(intent);
+            Context context = v.getContext();
+            Intent intent  = new Intent(context, RecursoActivity.class);
+            intent.putExtra("titulo", recurso.getTitulo());
+            intent.putExtra("tipo", recurso.getTipo());
+            intent.putExtra("url", recurso.getUrl());
+            intent.putExtra("duracion", recurso.getDuracion());
+            context.startActivity(intent);
         });
+
     }
 
     @Override
